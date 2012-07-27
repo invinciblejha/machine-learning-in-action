@@ -18,24 +18,23 @@ def file2matrix(filename):
     line = line.strip()
     listFromLine = line.split('\t')
     returnMat[index:] = listFromLine[0:3]
-    classLabelVector.append(int(listFromLine[-1]))
+    classLabelVector.append(listFromLine[-1])
     index += 1
   return returnMat, classLabelVector
     
 def classify0(inX,dataSet,labels,k):
   # Length of Y
   dataSetSizeY = dataSet.shape[0]
-  # Create an empty matrix the same with inX
+  # Create an empty array with inX as the default value
   # as the default value and subtract.
   diffMat = tile(inX,(dataSetSizeY,1)) - dataSet
-  # Square the matrix
+  # Square all the elements
   sqDiffMat = diffMat**2
   # Sum the values along the X axis
   sqDistances = sqDiffMat.sum(axis=1)
   distances = sqDistances**0.50
-  # Sort
+  # Sort the list with arguments as placeholders
   sortedDistIndicies = distances.argsort()
-  print sortedDistIndicies
   classCount = {}
   for i in range(k):
       voteIlabel = labels[sortedDistIndicies[i]]
